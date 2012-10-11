@@ -15,16 +15,16 @@ Install `django-analytics-client` (available on PyPi):
 
 The following settings needs to be defined in your `settings.py`:
 
-    ANALYTICS_USERNAME (Analytics service username.)
-    ANALYTICS_PASSWORD (Analytics service password.)
-    ANALYTICS_SITE_ID (The analytics site id we collect data for.)
-    ANALYTICS_HOST (The hostname for the analytics service.)
-    ANALYTICS_PORT (The port number for the analytics service.)
+- ANALYTICS_USERNAME (Analytics service username.)
+- ANALYTICS_PASSWORD (Analytics service password.)
+- ANALYTICS_SITE_ID (The analytics site id we collect data for.)
+- ANALYTICS_HOST (The hostname for the analytics service.)
+- ANALYTICS_PORT (The port number for the analytics service.)
 
 ## Usage
 
 Some examples:
 
-    Middleware example in `middleware.py`
-    Generic example in `sample.py`
-    Celery tasks in `tasks.py`
+- Middleware example in `middleware.py`
+- Generic example in `sample.py`
+- Celery tasks in `tasks.py`
