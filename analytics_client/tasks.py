@@ -34,16 +34,16 @@ from django.conf import settings
 from django.utils import translation
 
 from analytics_client.client import AnalyticsService
-
+from analytics_client.settings import _ANALYTICS_USERNAME, _ANALYTICS_PASSWORD, _ANALYTICS_SITE_ID, _ANALYTICS_HOST, _ANALYTICS_PORT
 
 logger = logging.getLogger(__name__)
 
 service = AnalyticsService(
-            username=settings.ANALYTICS_USERNAME,
-            password=settings.ANALYTICS_PASSWORD,
-            analytics_site=settings.ANALYTICS_SITE_ID,
-            service_url=settings.ANALYTICS_HOST,
-            service_port=settings.ANALYTICS_PORT,
+            username=_ANALYTICS_USERNAME,
+            password=_ANALYTICS_PASSWORD,
+            analytics_site=_ANALYTICS_SITE_ID,
+            service_url=_ANALYTICS_HOST,
+            service_port=_ANALYTICS_PORT,
             debug=settings.DEBUG
         )
 

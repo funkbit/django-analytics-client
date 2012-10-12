@@ -20,6 +20,7 @@ The following settings needs to be defined in your `settings.py`:
 - ANALYTICS_SITE_ID (The analytics site id we collect data for.)
 - ANALYTICS_HOST (The hostname for the analytics service.)
 - ANALYTICS_PORT (The port number for the analytics service.)
+- ANALYTICS_ENABLED (Disable or enable analytics reporting.)
 
 ## Usage
 

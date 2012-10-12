@@ -34,7 +34,9 @@ import socket
 import time
 
 from analytics_client.client import RREntry
+from analytics_client.settings import _ANALYTICS_ENABLED
 from analytics_client.tasks import store_request_response_entry
+
 
 logger = logging.getLogger(__name__)
 socket_name = socket.gethostname()
@@ -48,6 +50,8 @@ class AnalyticsClientMiddleware(object):
     def process_request(self, request):
 
         try:
+            if not _ANALYTICS_ENABLED:
+                return None
 
             # Assign UUID used to match the response, and record the start time for the request.
             self._uid = uuid.uuid4()
@@ -63,6 +67,10 @@ class AnalyticsClientMiddleware(object):
     def process_response(self, request, response):
 
         try:
+
+            if not _ANALYTICS_ENABLED:
+                return response
+
             # Match the request and response UUIDs
             uid1 = getattr(self, '_uid', None)
             uid2 = getattr(request, '_uid', None)
