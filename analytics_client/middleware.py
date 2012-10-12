@@ -82,22 +82,24 @@ class AnalyticsClientMiddleware(object):
                     request_bytes = len(getattr(request, 'body', ''))
                     response_bytes = len(getattr(response, 'content', ''))
 
-                    user_agent = ''
+                    user_agent = 'none'
                     if 'HTTP_USER_AGENT' in request.META.keys():
                         user_agent = request.META['HTTP_USER_AGENT']
 
-                    referrer = ''
+                    referrer = 'none'
                     if 'HTTP_REFERER' in request.META.keys():
                         referrer = request.META['HTTP_REFERER']
 
                     # TODO: We may need to use HTTP_X_FORWARDED_FOR
-                    client_ip = ''
+                    client_ip = 'none'
                     if 'REMOTE_ADDR' in request.META.keys():
                         client_ip = request.META['REMOTE_ADDR']
 
-                    session_id = None
+                    session_id = 'none'
                     if hasattr(request, 'session'):
                         session_id = request.session.get('session_key', None)
+                        if session_id is None:
+                            session_id = 'none'
 
                     # Calculate the request processing duration
                     duration = 0
