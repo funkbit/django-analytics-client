@@ -31,11 +31,19 @@ from datetime import datetime
 from analytics_client.client import AnalyticsService, Metric, RREntry
 
 # Replace username, password and analytics site id with your proper credentials
-service = AnalyticsService(username='username', password='password', analytics_site=ID, service_url='analytics.service.com', service_port=443, debug=False)
+service = AnalyticsService(
+        username='username',
+        password='password',
+        analytics_site=1,
+        service_url='analytics.service.com',
+        service_port=443,
+        debug=False
+    )
 
 
 # Creates a new metric entry for key 'test_key'
-metric = Metric(timestamp=datetime.now(),
+metric = Metric(
+        timestamp=datetime.now(),
         key='test_key',
         value='test metric value',
     )
@@ -44,7 +52,8 @@ metric = Metric(timestamp=datetime.now(),
 service.store_metric(metric)
 
 # Create a new request response entry
-rrentry = RREntry(timestamp=datetime.now(),
+rrentry = RREntry(
+        timestamp=datetime.now(),
         user_id=0,
         other_id=0,
         request_path='/',
