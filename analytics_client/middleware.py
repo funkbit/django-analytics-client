@@ -97,7 +97,7 @@ class AnalyticsClientMiddleware(object):
 
                     session_id = 'none'
                     if hasattr(request, 'session'):
-                        session_id = request.session.get('session_key', None)
+                        session_id = request.session.session_key
                         if session_id is None:
                             session_id = 'none'
 
