@@ -87,7 +87,15 @@ class AnalyticsClientMiddleware(object):
                     full_path = request.get_full_path()
                     is_api = getattr(request, 'is_api', None)
                     status = getattr(response, 'status_code', None)
-                    request_bytes = len(getattr(request, 'body', ''))
+
+                    try:
+                        request_bytes = len(getattr(request, 'body', ''))
+                    except:
+                        try:
+                            request_bytes = len(request.read())
+                        except:
+                            request_bytes = 0
+
                     response_bytes = len(getattr(response, 'content', ''))
 
                     user_agent = 'none'
