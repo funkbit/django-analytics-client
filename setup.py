@@ -10,11 +10,12 @@ if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
 
-setup(name='django-analytics-client',
+setup(
+    name='django-analytics-client',
     version=__version__,
     description='Custom analytics client for Django projects.',
     long_description=open('README.md').read(),
-    author='Funkbit AS',
+    author='Funkbit',
     author_email='post@funkbit.no',
     url='https://github.com/funkbit/django-analytics-client',
     include_package_data=True,
