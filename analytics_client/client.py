@@ -194,8 +194,8 @@ class AnalyticsService(object):
         response = connection.getresponse()
         data = response.read()
         if self.DEBUG:
-            print response.status
-            print data
+            print(response.status)
+            print(data)
 
         try:
             obj = json.loads(data, object_hook=AnalyticsJSONDecoder, encoding='utf-8')
