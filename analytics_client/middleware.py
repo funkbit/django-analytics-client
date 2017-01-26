@@ -99,16 +99,16 @@ class AnalyticsClientMiddleware(object):
                     response_bytes = len(getattr(response, 'content', ''))
 
                     user_agent = 'none'
-                    if 'HTTP_USER_AGENT' in request.META.keys():
+                    if 'HTTP_USER_AGENT' in request.META:
                         user_agent = request.META['HTTP_USER_AGENT']
 
                     referrer = 'none'
-                    if 'HTTP_REFERER' in request.META.keys():
+                    if 'HTTP_REFERER' in request.META:
                         referrer = request.META['HTTP_REFERER']
 
                     # TODO: We may need to use HTTP_X_FORWARDED_FOR
                     client_ip = 'none'
-                    if 'REMOTE_ADDR' in request.META.keys():
+                    if 'REMOTE_ADDR' in request.META:
                         client_ip = request.META['REMOTE_ADDR']
 
                     session_id = 'none'
