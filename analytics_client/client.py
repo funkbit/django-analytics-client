@@ -26,16 +26,25 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
+from __future__ import print_function
 
 import base64
-import httplib
 import json
 import re
 import string
-import urllib
-
 from datetime import date, datetime
 from decimal import Decimal
+
+try:
+    # Python 3
+    from http import client as http_client
+    from urllib.parse import urlencode
+    text = str
+except ImportError:
+    # Python 2
+    import httplib as http_client
+    from urllib import urlencode
+    text = unicode
 
 
 class AnalyticsObject(object):
@@ -102,7 +111,7 @@ class AnalyticsJSONEncoder(json.JSONEncoder):
         elif isinstance(obj, AnalyticsObject):
             return obj.__dict__
         elif isinstance(obj, Decimal):
-            return unicode(obj)
+            return text(obj)
         else:
             return json.JSONEncoder.default(self, obj)
 
@@ -120,11 +129,11 @@ def AnalyticsJSONDecoder(d):
     for a, b in d.items():
 
         # Parse datetimes and decimals
-        if pattern_datetime.match(unicode(b)):
+        if pattern_datetime.match(text(b)):
             b = datetime.strptime(b, '%Y-%m-%d %H:%M:%S')
-        elif pattern_date.match(unicode(b)):
+        elif pattern_date.match(text(b)):
             b = datetime.strptime(b, '%Y-%m-%d').date()
-        elif pattern_decimal.match(unicode(b)):
+        elif pattern_decimal.match(text(b)):
             b = Decimal(b)
 
         if isinstance(b, (list, tuple)):
@@ -165,11 +174,11 @@ class AnalyticsService(object):
 
         # SSL
         if self.SERVICE_PORT == 443:
-            connection = httplib.HTTPSConnection(self.SERVICE_URL, self.SERVICE_PORT)
+            connection = http_client.HTTPSConnection(self.SERVICE_URL, self.SERVICE_PORT)
 
         # Non-SSL
         else:
-            connection = httplib.HTTPConnection(self.SERVICE_URL, self.SERVICE_PORT)
+            connection = http_client.HTTPConnection(self.SERVICE_URL, self.SERVICE_PORT)
 
         auth = 'Basic ' + string.strip(base64.encodestring(self.username + ':' + self.password))
 
@@ -220,7 +229,7 @@ class AnalyticsService(object):
         for key, value in obj.items():
             params.append((key, value))
 
-        return urllib.urlencode(params)
+        return urlencode(params)
 
     def json_serialize(self, obj):
         """
